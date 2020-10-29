@@ -7,6 +7,9 @@ const courses = require('./routes/courses');
 const express = require('express');
 const app = express();
 
+app.set('view engine', 'pug');
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -26,7 +29,7 @@ if (app.get('env') === 'development'){
 app.use(logger);
 
 app.get('/', (req, res) => {
-    res.send('Hello world');
+    res.render('index', { title: 'My express App', message: 'Hello wachin!' })
 });
 
 // PORT
