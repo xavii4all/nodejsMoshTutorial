@@ -1,3 +1,5 @@
+const startupDebugger = require('debug')('app:startup');
+const dbDebugger = require('debug')('app:db');
 const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -23,7 +25,7 @@ console.log('Mail Password: ' + config.get('mail.password'));
 
 if (app.get('env') === 'development'){
     app.use(morgan('tiny'));
-    console.log('Morgan enabled...');
+    startupDebugger('Morgan enabled...');
 }
 
 app.use(logger);
@@ -31,6 +33,8 @@ app.use(logger);
 app.get('/', (req, res) => {
     res.render('index', { title: 'My express App', message: 'Hello wachin!' })
 });
+// Db work
+dbDebugger('Connected to the database...');
 
 // PORT
 const port = process.env.PORT || 3000;
